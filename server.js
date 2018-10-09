@@ -18,14 +18,19 @@ var server = http.createServer (function (req, res) {
         case '/index.html':
           sendFile(res, 'public/index.html');
           break;
-        case '/css/loading.gif':
-          sendFile(res, 'public/css/loading.gif','img/gif');
-          break;
+        case '/results.html':
+          sendFile(res,'public/results.html');
         case '/css/style.css':
           sendFile(res, 'public/css/style.css', 'text/css');
           break;
         case '/js/scripts.js':
           sendFile(res, 'public/js/scripts.js', 'text/javascript');
+          break;
+        case '/js/heatmap.min.js':
+          sendFile(res, 'public/js/heatmap.min.js', 'text/javascript');
+          break;
+        case 'img/favicon.png':
+          sendFile(res,'public/img/favicon.png','img/png');
           break;
         case '/503.html':
           send503(res,'public/503.html');
@@ -59,7 +64,7 @@ console.log('listening on 8080')
 
 var MongoClient = require('mongodb').MongoClient;
 //var Server = require('mongodb').Server;
-var MDBuri = "mongodb+srv://svadivazhagu:goatshead@occupation-rqsol.mongodb.net/test?retryWrites=true";
+var MDBuri = "mongodb+srv://Pokebase:testabc@cluster0-asxvd.mongodb.net";
 //var client = new MongoClient(new Server(MDBuri), {useNewUrlParser: true});
 var dbo;
 
@@ -68,7 +73,7 @@ MongoClient.connect(MDBuri,{ useNewUrlParser: true }, function(err, db) {
  console.log("Database Connected!");
 
   dbo  = db.db("occupationDb");
-   dbo.createCollection("occupation", function(err, res) {
+   dbo.createCollection("user", function(err, res) {
      if (err) throw err;
      console.log("Collection Occupation created!");
    });

@@ -1,56 +1,57 @@
-// var info={
+/*Setting a cookie session*/
+var cookie = getCookie();
+//if cookie is null make one
+var userid;
+if(typeof cookie == undefined ){
+  userid = makeid(); //make a random id
+  //make an experation date
+  var d = new Date();
+  d.setTime(d.getTime() + (5*24*60*60*1000));
+  var expires = d.toUTCString();
+  document.cookie = "userid="+userid+"; expires="+expires+"; path=/; cookiename=cookiemonster";
+}
 
-//     timeOpened:new Date(),
-//     timezone:(new Date()).getTimezoneOffset()/60,
+console.log("My user ID is: "+ cookie);
 
-//     pageon(){return window.location.pathname},
-//     referrer(){return document.referrer},
-//     previousSites(){return history.length},
+//This function gets a cookie and sees returns the users session id
+function getCookie() {
+    var id = "userid=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(id) == 0) {
+            return c.substring(id.length, c.length);
+        }
+    }
+    return "";//nocookie was set
+}
 
-//     browserName(){return navigator.appName},
-//     browserEngine(){return navigator.product},
-//     browserVersion1a(){return navigator.appVersion},
-//     browserVersion1b(){return navigator.userAgent},
-//     browserLanguage(){return navigator.language},
-//     browserOnline(){return navigator.onLine},
-//     browserPlatform(){return navigator.platform},
-//     javaEnabled(){return navigator.javaEnabled()},
-//     dataCookiesEnabled(){return navigator.cookieEnabled},
-//     dataCookies1(){return document.cookie},
-//     dataCookies2(){return decodeURIComponent(document.cookie.split(";"))},
-//     dataStorage(){return localStorage},
+//makes a 12char id
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-//     sizeScreenW(){return screen.width},
-//     sizeScreenH(){return screen.height},
-//     sizeDocW(){return document.clientWidth},
-//     sizeDocH(){return document.clientHeight},
-//     sizeInW(){return innerWidth},
-//     sizeInH(){return innerHeight},
-//     sizeAvailW(){return screen.availWidth},
-//     sizeAvailH(){return screen.availHeight},
-//     scrColorDepth(){return screen.colorDepth},
-//     scrPixelDepth(){return screen.pixelDepth},
+  for (var i = 0; i < 12; i++){
+     text += possible.charAt(Math.floor(Math.random() * possible.length));
+   }
+
+  return text;
+}
 
 
-//     latitude(){return position.coords.latitude},
-//     longitude(){return position.coords.longitude},
-//     accuracy(){return position.coords.accuracy},
-//     altitude(){return position.coords.altitude},
-//     altitudeAccuracy(){return position.coords.altitudeAccuracy},
-//     heading(){return position.coords.heading},
-//     speed(){return position.coords.speed},
-//     timestamp(){return position.timestamp},
-//     };
 
-    // console.log(info)
 
     var jsonObj = {
             userInfo:
                 {
                     screenInfo:
                         {
-                            width: (window.outerWidth), 
-                            height: (window.outerHeight) 
+                            width: (window.outerWidth),
+                            height: (window.outerHeight)
                         },
                     locInfo:
                         {
@@ -59,28 +60,30 @@
                         }
                 }
     }
+
     function myFunction() {
         var w = window.outerWidth;
         var h = window.outerHeight;
         jsonObj.userInfo.screenInfo["width"] = JSON.parse(w)
         jsonObj.userInfo.screenInfo["height"] = JSON.parse(h)
     }
-    
-    
+
+
     var x = document.getElementById("loc");
-    
+
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
-        } else { 
+        } else {
             x.innerHTML = "Geolocation is not supported by this browser.";
         }
     }
-    
+
     function showPosition(position) {
         jsonObj.userInfo.locInfo.latitude = JSON.parse(position.coords.latitude)
         jsonObj.userInfo.locInfo.longitude = JSON.parse(position.coords.longitude)
-        // x.innerHTML = "Latitude: " + position.coords.latitude + 
+        // x.innerHTML = "Latitude: " + position.coords.latitude +
         // "<br>Longitude: " + position.coords.longitude;
     }
+
     console.log(jsonObj)
