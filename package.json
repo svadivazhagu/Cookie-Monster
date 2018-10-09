@@ -1,0 +1,25 @@
+{
+  "name": "DomainofLife",
+  "description": "Assignment 4-WebApp",
+  "author": "Daniel McDonough",
+  "engines": {
+    "node": "8.9.4"
+  },
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "formidable": "^1.2.1",
+    "merge-descriptors": "^1.0.1",
+    "mongodb": "^3.1.6",
+    "querystring": "^0.2.0"
+  },
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https:/github.com/svadivashagu/a4-webapp"
+  },
+  "license": "ISC"
+}
