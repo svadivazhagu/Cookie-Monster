@@ -132,7 +132,7 @@ var h = window.outerHeight;
 
 staticdata.userinfo.screen={"width":w,"height":h};
 //Obtain info on the IP address
-var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a";
+var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a&hostname=1";
 var ipstackResponse;
 function ipTrack(){
 var responseArray = [];
@@ -268,4 +268,46 @@ window.onload = function() {
         xml.send(JSON.stringify(sessiondata));
       }
 
+
+
     };
+
+
+    function getData(){
+      var xml = new XMLHttpRequest();
+      xml.open("POST", "/getdata");
+      xml.onreadystatechange = handle_res_post;
+      xml.send("HEllo!");
+    }
+
+    //Handle return data from get data
+    function handle_res_post() {
+      //console.log("TOuch handle_res");
+      switch(this.readyState){
+        case 1:
+            console.log("Opened Query MSG");
+            break;
+        case 2:
+            console.log("Reading Query HEADER");
+            break;
+        case 3:
+            console.log("Loading Query Data");
+            break;
+        case 4:
+            if (this.status == 200) {
+              //console.log(this.responseText)
+              var myArr = JSON.parse(this.responseText);
+              console.log(this.responseText);
+              //CHECK IF response was an update response!
+              if(myArr.responselen != null){
+                  console.log("That item was in the array already");
+                  $('#updatemodal').modal('toggle');
+
+              }else{
+                //UPDATE UI
+
+          }
+      }
+    }
+  }
+  getData();

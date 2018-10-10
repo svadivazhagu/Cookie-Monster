@@ -48,6 +48,9 @@ var server = http.createServer (function (req, res) {
         case '/session':
           updatesession(req,res)
           break;
+        case '/getdata':
+          getdata(req,res)
+          break;
         default:
           send404(res, 'public/404.html');
           break;
@@ -145,6 +148,32 @@ function updatesession(req, res) {
         res.end();
   });
 }
+
+function getdata(req, res) {
+  
+}
+
+//  parse = JSON.parse(d); //parse the data
+  //console.log(parse);
+  //console.log(parse);
+  //get the link
+
+     //on done in the on data due to async
+  req.on('data', function(d) {
+     res.writeHead(200, {'Content-Type': 'text/html'});
+      var a = .then(token => { return token } );
+
+        // var a = dbo.collection("userdata").find({}, {id:1}).map(function(item){ return item.id; })
+       //res.write(JSON.stringify(a));
+
+       console.log(a);
+
+      res.end();
+  });
+
+}
+
+
 
 
 function sendFile(res, filename, contentType) {
