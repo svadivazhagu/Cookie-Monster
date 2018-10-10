@@ -123,19 +123,12 @@ setButtonListeners();
                             width: (window.outerWidth),
                             height: (window.outerHeight)
                         },
-                    locInfo:
-                        {
-                            latitude: "add this",
-                            longitude: "add this2"
-                        },
                     ipstackResponse:
                     
                         ipTrack()
                     ,
-                    browser:
-                    {
-                        browser: browser()
-                    }
+                    browser: browser()
+                    
                 }
     }
 
