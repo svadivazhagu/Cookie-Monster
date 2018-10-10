@@ -29,6 +29,9 @@ var server = http.createServer (function (req, res) {
         case '/js/heatmap.min.js':
           sendFile(res, 'public/js/heatmap.min.js', 'text/javascript');
           break;
+        case '/js/keypress.min.js':
+          sendFile(res, 'public/js/keypress.min.js', 'text/javascript');
+          break;
         case 'img/favicon.png':
           sendFile(res,'public/img/favicon.png','img/png');
           break;

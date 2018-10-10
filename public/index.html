@@ -16,37 +16,23 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 </head>
 <body id="monster_container">
-  <div id="heatmapContainerWrapper">
-    <div id="heatmapContainer">
 
-    </div>
-
-  </div>
 <h1>Cookie Monster</h1>
 <p>Check out the Console to see values.</p>
 
 
 <script src="js/heatmap.min.js"></script>
+<script src="js/keypress.min.js"></script>
 
 <!--Script for  -->
 <script>
-  function getvalue(json,x,y){
-    var hasMatch =false;
-    var xy= x+","+y;
-    for (var index = 0; index < mousedata.length; ++index) {
 
-     var coords = mousedata[index];
 
-     if(coords.xy == xy){
-       return coords.xy = value;
-       break;
-     }
-    }
-    return 0;
-  }
-
-  var mousedata= []; // x,y : value
   window.onload = function() {
+    var listener = new window.keypress.Listener();
+    listener.simple_combo("shift", function() {
+    console.log("You pressed shift and s");
+});
     //create a heatmap instance
     var heatmap = h337.create({
       container: document.getElementById('monster_container'),
@@ -58,7 +44,7 @@
       // backgroundColor with alpha so you can see through it
       //backgroundColor: 'rgba(0, 0, 58, 1)'
     });
-    var heatmapContainer = document.getElementById('heatmapContainerWrapper');
+    var heatmapContainer = document.getElementById('monster_container');
 
     heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
       // we need preventDefault for the touchmove
@@ -71,14 +57,15 @@
       }
 
       heatmap.addData({ x: x, y: y, value: 1 });
-      mousedata.push({"xy":x+","+y,value:1+getvalue()});
+      //mousedata.push({"xy":x+","+y,value:1+getvalue()});
       console.log(heatmap.getData());
     };
 
     heatmapContainer.onclick = function(e) {
       var x = e.layerX;
       var y = e.layerY;
-      //heatmap.addData({ x: x, y: y, value: 10 });
+      heatmap.addData({ x: x, y: y, value: 10 });
+      console.log(heatmap.getData());
     };
     var y = document.getElementsByClassName('heatmap-canvas');
     for(var i =0, il = y.length;i<il;i++){
