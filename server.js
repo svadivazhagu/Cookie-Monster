@@ -29,9 +29,6 @@ var server = http.createServer (function (req, res) {
         case '/js/heatmap.min.js':
           sendFile(res, 'public/js/heatmap.min.js', 'text/javascript');
           break;
-      /*  case '/js/keypress.min.js':
-          sendFile(res, 'public/js/keypress.min.js', 'text/javascript');
-          break;*/
         case 'img/favicon.png':
           sendFile(res,'public/img/favicon.png','img/png');
           break;
@@ -45,13 +42,12 @@ var server = http.createServer (function (req, res) {
     }
     else if(req.method === "POST") {
       switch(uri.pathname){
-        case '/flare':
-          getdata(req,res);
+        case '/static':
+          updatestatic(req,res);
           break;
-        case '/update':
-          update(req,res)
+        case '/session':
+          updatesession(req,res)
           break;
-
         default:
           send404(res, 'public/404.html');
           break;
@@ -73,12 +69,12 @@ var dbo;
 
 MongoClient.connect(MDBuri,{ useNewUrlParser: true }, function(err, db) {
   if (err) throw err;
- console.log("Database Connected!");
 
-  dbo  = db.db("occupationDb");
-   dbo.createCollection("user", function(err, res) {
+ console.log("Database Connected!");
+  dbo  = db.db("userinfo");
+   dbo.createCollection("userdata", function(err, res) {
      if (err) throw err;
-     console.log("Collection Occupation created!");
+     console.log("Collection userdata created!");
    });
 
 
@@ -88,21 +84,68 @@ MongoClient.connect(MDBuri,{ useNewUrlParser: true }, function(err, db) {
 // subroutines
 // NOTE: this is an ideal place to add your data functionality
 
-function getdata(req, res) {
-  //contentType = contentType || 'text/html';
 
-  dbo.collection("occupation").find("children").toArray(function(err, result){
-      if (err) throw err;
-      console.log(result);
-      var obj = {};
-      obj.result = result;
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(JSON.stringify(obj));
-    //  var query = result.length; //get the length of the results
-      res.end();
 
-    });
+function updatestatic(req, res) {
+  var parse = '';
+  var id;
+
+  //on get data
+  req.on('data', function(d) {
+    parse = JSON.parse(d); //parse the data
+    //console.log(parse);
+    //console.log(parse);
+    //get the link
+     //on done in the on data due to async
+       res.writeHead(200, {'Content-Type': 'text/html'});
+
+       //check if link already exists in the DB and addit if it doesnt
+        try {
+             dbo.collection("userdata").updateOne(
+                { "id" : parse.id },
+                { $set: parse.userinfo},
+                { upsert: true }
+             );
+             console.log("User "+parse.id+" Static data saved!");
+          } catch (e) {
+             print(e);
+          }
+
+        res.end();
+  });
 }
+
+
+function updatesession(req, res) {
+  var parse = '';
+  var id;
+
+  //on get data
+  req.on('data', function(d) {
+    parse = JSON.parse(d); //parse the data
+    //console.log(parse);
+    //console.log(parse);
+    //get the link
+
+       //on done in the on data due to async
+       res.writeHead(200, {'Content-Type': 'text/html'});
+
+       //check if link already exists in the DB and addit if it doesnt
+        try {
+             dbo.collection("userdata").updateOne(
+                { "id" : parse.id },
+                { $set: parse.session},
+                { upsert: true }
+             );
+             console.log("User "+parse.id+" session data saved!");
+          } catch (e) {
+             print(e);
+          }
+
+        res.end();
+  });
+}
+
 
 function sendFile(res, filename, contentType) {
   contentType = contentType || 'text/html';

@@ -1,50 +1,61 @@
 //Scripts.js by Daniel McDonough and Surya Vadivazhagu
 
+/*
+Six-Pack Based Script
+
+  Store a cookie/sessionID
+
+  IP & Network Info
+
+  Track Browser & Windo information
+
+  Track Refferers
+
+  Track Keystrokes & Mouse movements
+
+  Button Clicks
+
+*/
+
+//ON DOCUMENT READY...
+
 
 /*Setting a cookie session*/
-var cookie = getCookieID();
-var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a"
-//if cookie is null make one
-var userid;
-if(typeof cookie == undefined || cookie == ''){
-  userid = makeid(); //make a random id
-  //make an experation date
-  var d = new Date();
-  d.setTime(d.getTime() + (5*24*60*60*1000));
-  var expires = d.toUTCString();
-  document.cookie = "userid="+userid+", expires="+expires;
-  cookie = getCookieID(document.cookie);
+var user; //define a user
+checkCookie();
+//check if cookie exists, set it if it doesnt
+function checkCookie() {
+   user = getCookie("userid");
+    if (user != "") {
+        alert("Welcome again: " + user);
+    } else {
+        setCookie("userid", makeid(), 5);
+
+    }
 }
 
-var referrer = document.referrer;
-if(referrer==''){
-  referrer = "Direct Link";
-}
-console.log(referrer);
-
-
-var myVar = setInterval(myTimer, 1000);
-var timespent = 0;
-function myTimer() {
-    timespent+=1000;
-    console.log("You have been one this site for "+ timespent/1000 + " seconds");
+//set a cookie based of a random ID
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-console.log("My user ID is: "+ cookie);
-
-var keylogger = []
-document.onkeypress=function(e){
-console.log(keylogger);    //do the required work;
-keylogger.push(e.key);
-}
-//This function gets a cookie and sees returns the users session id
-function getCookieID() {
-    var id = "userid=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split('=');
-    //console.log(ca[1]);
-    return ca[1];
-    //return "";//nocookie was set
+//get a cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 //makes a 12char id
@@ -55,11 +66,27 @@ function makeid() {
   for (var i = 0; i < 12; i++){
      text += possible.charAt(Math.floor(Math.random() * possible.length));
    }
-
   return text;
 }
 
+var staticdata = {
+        id:user,
+        userinfo: {}
+}; //
+//Get static info...
 
+//Get the Referer URL the User clicked to get her
+var referrer = function(){
+  if(document.referrer==''){
+    return "Direct Link";
+  }
+  return document.referrer;
+}
+console.log(referrer());
+
+staticdata.userinfo.referrer=referrer();
+
+//Get the User's Browser
 var browser = function() {
     //detects what browser a user is on.
     if (browser.prototype._cachedResult)
@@ -96,100 +123,94 @@ var browser = function() {
         isBlink ? 'Blink' :
         "Don't know";
 };
+console.log(browser());
 
-var buttonclicks = [];
-//function that sets dynamic listeners
-function setButtonListeners(){
-  var buttons = document.getElementsByClassName("clickcounter");
-  for(var i=0; i< buttons.length; i++) {
-      buttons[i].addEventListener("click", bindClick(i));
-      buttonclicks.push(0);
-    }
+staticdata.userinfo.browser=browser();
+
+var w = window.outerWidth;
+var h = window.outerHeight;
+
+staticdata.userinfo.screen={"width":w,"height":h};
+//Obtain info on the IP address
+var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a";
+var ipstackResponse;
+function ipTrack(){
+var responseArray = [];
+fetch(API_CALL)
+    .then(res => res.json())
+    .then(data => ipstackResponse = data)
+    .then(() => responseArray.push(ipstackResponse))
+return responseArray
 }
 
-  function bindClick(i) {
-     return function(){
-       buttonclicks[i]+=1;
-              console.log("you clicked region number " + i + ",  "+ buttonclicks[i]+ " times! ");
-              //console.log();
-            };
-  }
+staticdata.userinfo.ipstacktrace=ipTrack();
 
-setButtonListeners();
+console.log(staticdata);
 
+//send static data from DB HERE
+//send data to the DB
+function sendstaticData(){
+  var xml = new XMLHttpRequest();
+  xml.open("POST", "/static");
+  //xml.onreadystatechange = handle_res_post;
 
-
-
-
-
-
-    var jsonObj = {
-            userInfo:
-                {
-                    screenInfo:
-                        {
-                            width: (window.outerWidth),
-                            height: (window.outerHeight)
-                        },
-                    locInfo:
-                        {
-                            latitude: "add this",
-                            longitude: "add this2"
-                        },
-                    ipstackResponse:
-
-                        ipTrack()
-                    ,
-                    browser:
-                    {
-                        browser: browser()
-                    }
-                }
-    }
-
-    function myFunction() {
-        var w = window.outerWidth;
-        var h = window.outerHeight;
-        jsonObj.userInfo.screenInfo["width"] = JSON.parse(w)
-        jsonObj.userInfo.screenInfo["height"] = JSON.parse(h)
-    }
+  xml.send(JSON.stringify(staticdata));
+}
 
 
-    var x = document.getElementById("loc");
+sendstaticData();
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            x.innerHTML = "Geolocation is not supported by this browser.";
+
+//********************************************
+
+//this is a cache of session data that is sent to the db for storage periodicaly
+var sessiondata = {
+    id:user,
+    session : {},
+}
+
+//some global vars because its easy to use
+var keylogger = []; //key logger array
+var timespent = 0; //time spent on site
+var buttoninfo = []; //button click info
+var heatmap_data; //mouse tracking info
+
+
+window.onload = function() {
+
+        //update the timerevery second (1000 ms)
+        var updateTimer = setInterval(myTimer, 1000);
+
+        function myTimer() {
+            timespent+=1000;
+            console.log("You have been one this site for "+ timespent/1000 + " seconds");
         }
-    }
 
-    function showPosition(position) {
-        jsonObj.userInfo.locInfo.latitude = JSON.parse(position.coords.latitude)
-        jsonObj.userInfo.locInfo.longitude = JSON.parse(position.coords.longitude)
-        // x.innerHTML = "Latitude: " + position.coords.latitude +
-        // "<br>Longitude: " + position.coords.longitude;
-    }
-
-var ipstackResponse;
-    function ipTrack(){
-    var responseArray = []
-    fetch('http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a')
-  .then(res => res.json())
-  .then(data => ipstackResponse = data)
-  .then(() => responseArray.push(ipstackResponse))
-  .then(() => console.log(ipstackResponse))
-    return responseArray
-    };
+      //keep track of the users key presses
+      document.onkeypress=function(e){
+        keylogger.push(e.key);
+      }
 
 
-    console.log(jsonObj)
+      //function that sets dynamic listeners
+      function setButtonListeners(){
+        var buttons = document.getElementsByClassName("clickcounter");
+        for(var i=0; i< buttons.length; i++) {
+            buttons[i].addEventListener("click", bindClick(i));
+            buttoninfo.push({"clicks":0, "time":"Never"});
+          }
+      }
 
+        function bindClick(i) {
+           return function(){
+                    buttoninfo[i].clicks+=1; //incriment clicks
+                    buttoninfo[i].time=timespent; //update the time button was clicked
+                    //console.log(buttoninfo);
+                    //console.log("you clicked region number " + i + ",  "+ buttoninfo[i]+ " times! At time: "+timespent/1000+" seconds");
+                  };
+        }
 
-
-    window.onload = function() {
-
+      setButtonListeners();
 
       //create a heatmap instance
       var heatmap = h337.create({
@@ -207,6 +228,7 @@ var ipstackResponse;
       heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
         // we need preventDefault for the touchmove
         e.preventDefault();
+        e.stopImmediatePropagation();
         var x = e.layerX+document.body.scrollLeft;
         var y = e.layerY+document.body.scrollTop;
         if (e.touches) {
@@ -216,13 +238,34 @@ var ipstackResponse;
 
         heatmap.addData({ x: x, y: y, value: 1 });
         //mousedata.push({"xy":x+","+y,value:1+getvalue()});
-        console.log(heatmap.getData());
+
+        heatmap_data = heatmap.getData();
+        console.log(heatmap_data);
       };
 
-
+      //make heatmap invisible
       var y = document.getElementsByClassName('heatmap-canvas');
       for(var i =0, il = y.length;i<il;i++){
         y[i].style.display = "none";
+      }
+
+      var updatesessiondata = setInterval(cachedata,5000); //every 5 seconds update the local data
+
+      //update session data with the current data
+      function cachedata(){
+        sessiondata.session.keylog = keylogger;
+        sessiondata.session.heatmap = heatmap_data;
+        sessiondata.session.buttoninfo = buttoninfo;
+        sessiondata.session.timespent = timespent;
+      }
+
+      var sendsessiondata = setInterval(sendData,10000); //every 10 seconds send user data to the database
+      //send data to the DB
+      function sendData(){
+        var xml = new XMLHttpRequest();
+        xml.open("POST", "/session");
+        //xml.onreadystatechange = handle_res_post;
+        xml.send(JSON.stringify(sessiondata));
       }
 
     };
