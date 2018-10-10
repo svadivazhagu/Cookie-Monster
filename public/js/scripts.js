@@ -16,10 +16,11 @@ var myVar = setInterval(myTimer, 1000);
 var timespent = 0;
 function myTimer() {
     timespent+=1000;
-    console.log("Youve been one this site for "+ timespent/1000 + " seconds");
+    console.log("You have been one this site for "+ timespent/1000 + " seconds");
 }
 
 console.log("My user ID is: "+ cookie);
+
 var keylogger = []
 document.onkeypress=function(e){
 console.log(keylogger);    //do the required work;
@@ -54,6 +55,26 @@ function makeid() {
   return text;
 }
 
+
+var buttonclicks = [];
+//function that sets dynamic listeners
+function setButtonListeners(){
+  var buttons = document.getElementsByClassName("clickcounter");
+  for(var i=0; i< buttons.length; i++) {
+      buttons[i].addEventListener("click", bindClick(i));
+      buttonclicks.push(0);
+    }
+}
+
+  function bindClick(i) {
+     return function(){
+       buttonclicks[i]+=1;
+              console.log("you clicked region number " + i + ",  "+ buttonclicks[i]+ " times! ");
+              //console.log();
+            };
+  }
+
+setButtonListeners();
 
 
 

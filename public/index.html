@@ -19,17 +19,19 @@
 
 <h1>Cookie Monster</h1>
 <p>Check out the Console to see values.</p>
+<button class="clickcounter">Button1</button>
 
+<button class="clickcounter">Button2</button>
 
 <script src="js/heatmap.min.js"></script>
-<script src="js/keypress.min.js"></script>
+<!--<script src="js/keypress.min.js"></script>-->
 
 <!--Script for  -->
 <script>
 
 
   window.onload = function() {
-  
+
 
     //create a heatmap instance
     var heatmap = h337.create({
@@ -67,7 +69,7 @@
     };
     var y = document.getElementsByClassName('heatmap-canvas');
     for(var i =0, il = y.length;i<il;i++){
-       y[i].style.display = "none";
+      y[i].style.display = "none";
     }
 
   };
