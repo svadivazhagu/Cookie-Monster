@@ -12,8 +12,21 @@ if(typeof cookie == undefined ){
   document.cookie = "userid="+userid+"; expires="+expires+"; path=/; cookiename=cookiemonster";
 }
 
+
+var myVar = setInterval(myTimer, 1000);
+var timespent = 0;
+function myTimer() {
+    timespent+=1000;
+    console.log("You have been one this site for "+ timespent/1000 + " seconds");
+}
+
 console.log("My user ID is: "+ cookie);
 
+var keylogger = []
+document.onkeypress=function(e){
+console.log(keylogger);    //do the required work;
+keylogger.push(e.key);
+}
 //This function gets a cookie and sees returns the users session id
 function getCookie() {
     var id = "userid=";
@@ -44,6 +57,7 @@ function makeid() {
 }
 
 
+<<<<<<< HEAD
 var browser = function() {
     //detects what browser a user is on.
     if (browser.prototype._cachedResult)
@@ -80,6 +94,28 @@ var browser = function() {
         isBlink ? 'Blink' :
         "Don't know";
 };
+=======
+var buttonclicks = [];
+//function that sets dynamic listeners
+function setButtonListeners(){
+  var buttons = document.getElementsByClassName("clickcounter");
+  for(var i=0; i< buttons.length; i++) {
+      buttons[i].addEventListener("click", bindClick(i));
+      buttonclicks.push(0);
+    }
+}
+
+  function bindClick(i) {
+     return function(){
+       buttonclicks[i]+=1;
+              console.log("you clicked region number " + i + ",  "+ buttonclicks[i]+ " times! ");
+              //console.log();
+            };
+  }
+
+setButtonListeners();
+
+>>>>>>> 13e4afde4482edc95563b6c93c4ee1b254f025b4
 
 
     var jsonObj = {
