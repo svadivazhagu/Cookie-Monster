@@ -132,7 +132,7 @@ var h = window.outerHeight;
 
 staticdata.userinfo.screen={"width":w,"height":h};
 //Obtain info on the IP address
-var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a&hostname=1";
+var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a&hostname=1 ";
 var ipstackResponse;
 function ipTrack(){
 var responseArray = [];
@@ -183,7 +183,7 @@ window.onload = function() {
 
         function myTimer() {
             timespent+=1000;
-            console.log("You have been one this site for "+ timespent/1000 + " seconds");
+         //   console.log("You have been one this site for "+ timespent/1000 + " seconds");
         }
 
       //keep track of the users key presses
@@ -269,10 +269,14 @@ window.onload = function() {
       }
 
 
-
-    };
-
-
+    }; 
+     function sendData(){
+      var xml = new XMLHttpRequest();
+      xml.open("POST", "/getIndexes");
+      xml.onreadystatechange = handle_res_post;
+      xml.send("tseting1234");
+    }
+    sendData()
     function getData(){
       var xml = new XMLHttpRequest();
       xml.open("POST", "/getdata");
@@ -310,4 +314,3 @@ window.onload = function() {
       }
     }
   }
-  getData();
