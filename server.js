@@ -18,10 +18,19 @@ var server = http.createServer (function (req, res) {
         case '/index.html':
           sendFile(res, 'public/index.html');
           break;
+        case '/dashboard.html':
+          sendFile(res, 'public/dashboard.html')
+          break;
+        case '/dashboard':
+          sendFile(res, 'public/dashboard.html')
+          break;
         case '/results.html':
           sendFile(res,'public/results.html');
         case '/css/style.css':
           sendFile(res, 'public/css/style.css', 'text/css');
+          break;
+        case '/css/mdb.min.css':
+          sendFile(res, 'public/css/mdb.min.css', 'text/css');
           break;
         case '/js/scripts.js':
           sendFile(res, 'public/js/scripts.js', 'text/javascript');
@@ -29,16 +38,15 @@ var server = http.createServer (function (req, res) {
         case '/js/heatmap.min.js':
           sendFile(res, 'public/js/heatmap.min.js', 'text/javascript');
           break;
-        case 'img/favicon.png':
+        case '/img/favicon.png':
           sendFile(res,'public/img/favicon.png','img/png');
           break;
         case '/503.html':
           send503(res,'public/503.html');
           break;
-        case '/cookieLogo.png':
+        case '/img/cookieLogo.png':
           sendFile(res, 'public/img/cookieLogo.png', 'img/png')
-        case '/dashboard.html':
-          sendFile(res, 'public/dashboard.html')
+
         default:
           send404(res, 'public/404.html');
           //res.end('404 not found')
