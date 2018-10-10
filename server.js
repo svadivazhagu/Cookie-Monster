@@ -154,26 +154,7 @@ function updatesession(req, res) {
 }
 
 function getdata(req, res) {
-  
-}
 
-//  parse = JSON.parse(d); //parse the data
-  //console.log(parse);
-  //console.log(parse);
-  //get the link
-
-     //on done in the on data due to async
-  req.on('data', function(d) {
-     res.writeHead(200, {'Content-Type': 'text/html'});
-      var a = .then(token => { return token } );
-
-        // var a = dbo.collection("userdata").find({}, {id:1}).map(function(item){ return item.id; })
-       //res.write(JSON.stringify(a));
-
-       console.log(a);
-
-      res.end();
-  });
 
 }
 
