@@ -35,6 +35,10 @@ var server = http.createServer (function (req, res) {
         case '/503.html':
           send503(res,'public/503.html');
           break;
+        case '/cookieLogo.png':
+          sendFile(res, 'public/img/cookieLogo.png', 'img/png')
+        case '/dashboard.html':
+          sendFile(res, 'public/dashboard.html')
         default:
           send404(res, 'public/404.html');
           //res.end('404 not found')
