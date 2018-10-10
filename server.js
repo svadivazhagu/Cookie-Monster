@@ -60,8 +60,8 @@ var server = http.createServer (function (req, res) {
         case '/session':
           updatesession(req,res)
           break;
-        case '/getdata':
-          getdata(req,res)
+        case '/getIndexes':
+          getIndexes(req, res)
           break;
         default:
           send404(res, 'public/404.html');
@@ -154,16 +154,38 @@ function updatesession(req, res) {
              );
              console.log("User "+parse.id+" session data saved!");
           } catch (e) {
-             print(e);
+           //  print(e);
           }
 
         res.end();
   });
 }
 
-function getdata(req, res) {
+var docCount
+function getIndexes(req, res) {
+var parse = {};
+var id;
 
+//on get data
+req.on('data', function(d) {
+  //parse = JSON.parse(d); //parse data
+  //on done in on data
+  res.writeHead(200, {'Content-Type': 'text/html'});
 
+  //get all indexes in the current collection of db (so user ids)
+ docCount = dbo.collection("userdata").countDocuments({});
+ parse.count = docCount;
+ res.write(JSON.stringify(parse));
+  console.log(docCount);
+
+  setTimeout(function(){res.end()}, 12000);
+
+});
+}
+
+function consoleLog(input){
+ console.log(input)
+ return input;
 }
 
 
