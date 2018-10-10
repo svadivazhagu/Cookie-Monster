@@ -1,5 +1,6 @@
 /*Setting a cookie session*/
 var cookie = getCookie();
+var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a"
 //if cookie is null make one
 var userid;
 if(typeof cookie == undefined ){
@@ -43,6 +44,42 @@ function makeid() {
 }
 
 
+var browser = function() {
+    //detects what browser a user is on.
+    if (browser.prototype._cachedResult)
+        return browser.prototype._cachedResult;
+
+    // Opera 
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+    // Firefox 
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+
+    // Safari 
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+
+    // Internet Explorer
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+    // Edge 
+    var isEdge = !isIE && !!window.StyleMedia;
+
+    // Chrome 
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+    // Blink engine detection
+    var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+    return browser.prototype._cachedResult =
+        isOpera ? 'Opera' :
+        isFirefox ? 'Firefox' :
+        isSafari ? 'Safari' :
+        isChrome ? 'Chrome' :
+        isIE ? 'IE' :
+        isEdge ? 'Edge' :
+        isBlink ? 'Blink' :
+        "Don't know";
+};
 
 
     var jsonObj = {
@@ -57,7 +94,15 @@ function makeid() {
                         {
                             latitude: "add this",
                             longitude: "add this2"
-                        }
+                        },
+                    ipstackResponse:
+                    
+                        ipTrack()
+                    ,
+                    browser:
+                    {
+                        browser: browser()
+                    }
                 }
     }
 
@@ -85,5 +130,17 @@ function makeid() {
         // x.innerHTML = "Latitude: " + position.coords.latitude +
         // "<br>Longitude: " + position.coords.longitude;
     }
+   
+var ipstackResponse;
+    function ipTrack(){
+    var responseArray = []
+    fetch('http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a')
+  .then(res => res.json())
+  .then(data => ipstackResponse = data)
+  .then(() => responseArray.push(ipstackResponse))
+  .then(() => console.log(ipstackResponse))
+    return responseArray
+    };
 
+  
     console.log(jsonObj)

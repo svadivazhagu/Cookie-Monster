@@ -45,14 +45,14 @@
     return 0;
   }
 
-  var mousedata= []; // x,y : value
+ // var mousedata= []; // x,y : value
   window.onload = function() {
     //create a heatmap instance
     var heatmap = h337.create({
       container: document.getElementById('monster_container'),
-      maxOpacity: 0,
-      minOpacity:0,
-      gradient: { },
+      // maxOpacity: 0,
+      // minOpacity:0,
+      // gradient: { },
       radius: 10,
       blur: 0.9,
       // backgroundColor with alpha so you can see through it
@@ -71,24 +71,24 @@
       }
 
       heatmap.addData({ x: x, y: y, value: 1 });
-      mousedata.push({"xy":x+","+y,value:1+getvalue()});
-      console.log(heatmap.getData());
+      //mousedata.push({"xy":x+","+y,value:1+getvalue()});
+      //console.log(heatmap.getData());
     };
 
     heatmapContainer.onclick = function(e) {
       var x = e.layerX;
       var y = e.layerY;
-      //heatmap.addData({ x: x, y: y, value: 10 });
+      heatmap.addData({ x: x, y: y, value: 10 });
     };
     var y = document.getElementsByClassName('heatmap-canvas');
     for(var i =0, il = y.length;i<il;i++){
-       y[i].style.display = "none";
+      // y[i].style.display = "none";
     }
 
   };
 </script>
 
 </body>
-<script src="/js/scripts.js"></script>
+<script src="js/scripts.js"></script>
 
 </html>
