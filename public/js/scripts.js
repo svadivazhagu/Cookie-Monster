@@ -1,3 +1,6 @@
+//Scripts.js by Daniel McDonough and Surya Vadivazhagu
+
+
 /*Setting a cookie session*/
 var cookie = getCookie();
 var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a"
@@ -11,6 +14,10 @@ if(typeof cookie == undefined ){
   var expires = d.toUTCString();
   document.cookie = "userid="+userid+"; expires="+expires+"; path=/; cookiename=cookiemonster";
 }
+
+var last_url = window.history.back();
+var next_url = window.history.forward();
+
 
 
 var myVar = setInterval(myTimer, 1000);
@@ -62,22 +69,22 @@ var browser = function() {
     if (browser.prototype._cachedResult)
         return browser.prototype._cachedResult;
 
-    // Opera 
+    // Opera
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 
-    // Firefox 
+    // Firefox
     var isFirefox = typeof InstallTrigger !== 'undefined';
 
-    // Safari 
+    // Safari
     var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
 
     // Internet Explorer
     var isIE = /*@cc_on!@*/false || !!document.documentMode;
 
-    // Edge 
+    // Edge
     var isEdge = !isIE && !!window.StyleMedia;
 
-    // Chrome 
+    // Chrome
     var isChrome = !!window.chrome && !!window.chrome.webstore;
 
     // Blink engine detection
@@ -93,6 +100,7 @@ var browser = function() {
         isBlink ? 'Blink' :
         "Don't know";
 };
+
 var buttonclicks = [];
 //function that sets dynamic listeners
 function setButtonListeners(){
@@ -133,7 +141,7 @@ setButtonListeners();
                             longitude: "add this2"
                         },
                     ipstackResponse:
-                    
+
                         ipTrack()
                     ,
                     browser:
@@ -167,7 +175,7 @@ setButtonListeners();
         // x.innerHTML = "Latitude: " + position.coords.latitude +
         // "<br>Longitude: " + position.coords.longitude;
     }
-   
+
 var ipstackResponse;
     function ipTrack(){
     var responseArray = []
@@ -179,5 +187,51 @@ var ipstackResponse;
     return responseArray
     };
 
-  
+
     console.log(jsonObj)
+
+
+
+    window.onload = function() {
+
+
+      //create a heatmap instance
+      var heatmap = h337.create({
+        container: document.getElementById('monster_container'),
+        // maxOpacity: 0,
+        // minOpacity:0,
+        // gradient: { },
+        radius: 10,
+        blur: 0.9,
+        // backgroundColor with alpha so you can see through it
+        //backgroundColor: 'rgba(0, 0, 58, 1)'
+      });
+      var heatmapContainer = document.getElementById('monster_container');
+
+      heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
+        // we need preventDefault for the touchmove
+        e.preventDefault();
+        var x = e.layerX+document.body.scrollLeft;
+        var y = e.layerY+document.body.scrollTop;
+        if (e.touches) {
+          x = e.touches[0].pageX+document.body.scrollLeft;
+          y = e.touches[0].pageY+document.body.scrollTop;
+        }
+
+        heatmap.addData({ x: x, y: y, value: 1 });
+        //mousedata.push({"xy":x+","+y,value:1+getvalue()});
+        console.log(heatmap.getData());
+      };
+
+      heatmapContainer.onclick = function(e) {
+        var x = e.layerX;
+        var y = e.layerY;
+        heatmap.addData({ x: x, y: y, value: 10 });
+        console.log(heatmap.getData());
+      };
+      var y = document.getElementsByClassName('heatmap-canvas');
+      for(var i =0, il = y.length;i<il;i++){
+        y[i].style.display = "none";
+      }
+
+    };
