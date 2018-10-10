@@ -57,7 +57,6 @@ function makeid() {
 }
 
 
-<<<<<<< HEAD
 var browser = function() {
     //detects what browser a user is on.
     if (browser.prototype._cachedResult)
@@ -94,7 +93,6 @@ var browser = function() {
         isBlink ? 'Blink' :
         "Don't know";
 };
-=======
 var buttonclicks = [];
 //function that sets dynamic listeners
 function setButtonListeners(){
@@ -115,7 +113,6 @@ function setButtonListeners(){
 
 setButtonListeners();
 
->>>>>>> 13e4afde4482edc95563b6c93c4ee1b254f025b4
 
 
     var jsonObj = {
