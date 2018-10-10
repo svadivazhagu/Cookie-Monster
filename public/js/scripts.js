@@ -2,22 +2,25 @@
 
 
 /*Setting a cookie session*/
-var cookie = getCookie();
+var cookie = getCookieID();
 var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a"
 //if cookie is null make one
 var userid;
-if(typeof cookie == undefined ){
+if(typeof cookie == undefined || cookie == ''){
   userid = makeid(); //make a random id
   //make an experation date
   var d = new Date();
   d.setTime(d.getTime() + (5*24*60*60*1000));
   var expires = d.toUTCString();
-  document.cookie = "userid="+userid+"; expires="+expires+"; path=/; cookiename=cookiemonster";
+  document.cookie = "userid="+userid+", expires="+expires;
+  cookie = getCookieID(document.cookie);
 }
 
-var last_url = window.history.back();
-var next_url = window.history.forward();
-
+var referrer = document.referrer;
+if(referrer==''){
+  referrer = "Direct Link";
+}
+console.log(referrer);
 
 
 var myVar = setInterval(myTimer, 1000);
@@ -35,20 +38,13 @@ console.log(keylogger);    //do the required work;
 keylogger.push(e.key);
 }
 //This function gets a cookie and sees returns the users session id
-function getCookie() {
+function getCookieID() {
     var id = "userid=";
     var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(id) == 0) {
-            return c.substring(id.length, c.length);
-        }
-    }
-    return "";//nocookie was set
+    var ca = decodedCookie.split('=');
+    //console.log(ca[1]);
+    return ca[1];
+    //return "";//nocookie was set
 }
 
 //makes a 12char id
@@ -135,12 +131,19 @@ setButtonListeners();
                             width: (window.outerWidth),
                             height: (window.outerHeight)
                         },
+                    locInfo:
+                        {
+                            latitude: "add this",
+                            longitude: "add this2"
+                        },
                     ipstackResponse:
 
                         ipTrack()
                     ,
-                    browser: browser()
-                    
+                    browser:
+                    {
+                        browser: browser()
+                    }
                 }
     }
 
@@ -216,12 +219,7 @@ var ipstackResponse;
         console.log(heatmap.getData());
       };
 
-      heatmapContainer.onclick = function(e) {
-        var x = e.layerX;
-        var y = e.layerY;
-        heatmap.addData({ x: x, y: y, value: 10 });
-        console.log(heatmap.getData());
-      };
+
       var y = document.getElementsByClassName('heatmap-canvas');
       for(var i =0, il = y.length;i<il;i++){
         y[i].style.display = "none";
