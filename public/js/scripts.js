@@ -132,7 +132,7 @@ var h = window.outerHeight;
 
 staticdata.userinfo.screen={"width":w,"height":h};
 //Obtain info on the IP address
-var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a";
+var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a&hostname=1";
 var ipstackResponse;
 function ipTrack(){
 var responseArray = [];
