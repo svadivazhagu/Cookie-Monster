@@ -3,6 +3,7 @@
 var copyofDB;//array of users
 
 function parseData(){
+  
   function getTableinfo(){
     //var obj =
     for(var i=0;i<copyofDB.length;i++){
@@ -21,13 +22,13 @@ getTableinfo();
 }
 
 function getData(){
-  //  var get = {"data":data}
-  //console.log("heoll>");
+
     var xml = new XMLHttpRequest();
     xml.open("POST", "/getIndexes");
     xml.onreadystatechange = handle_res_post;
     xml.send();
   }
+
   //Handle return data from get data
   function handle_res_post() {
     //console.log("TOuch handle_res");
