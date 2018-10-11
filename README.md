@@ -1,4 +1,5 @@
 # Cookie Monster <br> svadivazhagu & dmcdonough
+http://fp-cookiemonster.herokuapp.com
 ___
 ## About Cookie Monster
 
@@ -8,19 +9,20 @@ ___
 ## Project Ideation
 Cookie Monster was born from the desire to understand how services like Google Analytics and others are able to gather so much information on their users. While Cookie Monster lacks the deep data-mining features of Google Analytics, it is our testament to learning about persistent web analytics within the time-frame of an academic final project.
 ___
+## Use Cases
+
+___
 ## Achievements 
 ### Technical Achivements
-- **IP Tracking**
-- **Optimizing render times by loading user data into dashboard page individually**
-- **Using latitude and longitude to get city/state**
-- **Persistent use of cookies and localStorage to cache high volumes of data for less render time**
-- **Current location map display**
+- **IP Tracking** : We made use of a RESTful IP Tracking API that allowed us to query and identify a user's IP. From this they are able to obtain a host of information, which we put into a mongoDB document corresponding to a user's cookie ID/hash, and then use that to persist through multiple sessions.
+- **Persistent use of cookies and localStorage to cache high volumes of data for less render time** : From a user's IP data to the various other data points we collect, there is a great amount of information being pushed to our Mongo collection at any given time. We utilized localStorage as well as our own caching system using cookies to ensure that not too many ```insert``` operations are being run at once.
+- **Current location map display**: We leveraged the power of the Google Maps API to 
+use the information from our IP routing to triangulate and identify a user's location and display an embedded Maps viewer to interact with.
 
 ### Design Achievements
-- **Fully integrating Material Design philosophy into project**
-- **Understanding color complementary principles**
-- **Sidebar for user information**
-- **Landing page is made beautiful and comprehensive using background + Bootstrap**
+- **Fully integrating Material Design philosophy into project**: The landing page and then the dashboard are both made with Material Design elements thoroughly.
+- **Understanding color complementary principles** : We learned about complementary colors as the color choices for the buttons would have made a big impact on the overall presentation so we wanted to ensure that the colors selected were cohesive.
+- **Sidebar for user information** : The user, when viewing the dashboard of their data, has a sidebar with basic information on it. This sidebar helps quickly communicate information that would otherwise have to be organized in a table.
 
 ___
 Made with love at WPI.
