@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,27 +20,47 @@
 </head>
 
 <body>
+        <div class="view full-page-intro" style="background-image: url('https://www.vactualpapers.com/web/wallpapers/hd-wallpaper-inspired-by-google-material-design-34/2560x1440.jpg'); background-repeat: no-repeat; background-size: cover;">
+
     <!--Main Navigation-->
+    
     <header>
         <!-- Sidebar -->
-        <div class="sidebar-fixed position-fixed">
+        <div class="sidebar-fixed position-fixed" style ="background: transparent;
+        ">
             <a class="logo-wrapper waves-effect">
                 <img src="https://ubisafe.org/images/cookies-clipart-clear-background-6.png">
             </a>
+           <br>
+           <h8>Your Data</h8> 
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action waves-effect" id = "location">
-                    <i class="fa fa-map-marker mr-3"></i>Location
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="
+                background: burlywood;
+            "> 
+                    <i class="fa fa-map-marker mr-3"></i><div id = "city"></div>  
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect" id = "ip">
-                    <i class="fa fa-user mr-3"></i>IP Address</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect" id = "hostname">
-                    <i class="fa fa-desktop mr-3"></i>Hostname</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect" id = "browser">
-                    <i class="fa fa-chrome mr-3" id = "browserIcon"></i>Browser</a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="
+                background: burlywood;
+            ">
+                    <i class="fa fa-user mr-3"></i><div id = "ip"></div></a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="
+                background: burlywood;
+            ">
+                    <i class="fa fa-desktop mr-3"></i><div id = "hostname"style="
+                    font-size: 14px;
+                    background: burlywood;
+                "></div></a>
+
+                <a href="#" class="list-group-item list-group-item-action waves-effect" style="
+                background: burlywood;">
+
+                    <i class="fa fa-chrome mr-3"></i><div id = "browser"></div></a>
             </div>
+        </div>
         </div>
         <!-- Sidebar -->
     </header>
+</div>
     <!--Main Navigation-->
 
     <!--Main layout-->
@@ -53,20 +74,6 @@
           <div class="container-fluid mt-5">
 
               <!-- Heading -->
-              <div class="card mb-4 wow fadeIn">
-
-                  <!--Card content-->
-                  <div class="card-body d-sm-flex justify-content-between">
-
-                      <h4 class="mb-2 mb-sm-0 pt-1">
-                          <span>User Location Data</span>
-                      </h4>
-
-
-                  </div>
-
-              </div>
-              <!-- Heading -->
 
 
 
@@ -78,17 +85,8 @@
                 <!--Grid column-->
                 <div class="col-md-9 mb-4">
 
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card content-->
-                        <div class="card-body">
-
                             <div id="map-container" class="z-depth-1" style="height: 500px"></div>
 
-                        </div>
-
-                    </div>
                     <!--/.Card-->
 
                 </div>
@@ -166,7 +164,7 @@
     <script>
         // Regular map
         function regular_map() {
-            var var_location = new google.maps.LatLng(40.725118, -73.997699);
+            var var_location = new google.maps.LatLng(latitude, longitude);
 
             var var_mapoptions = {
                 center: var_location,

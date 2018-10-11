@@ -8,6 +8,7 @@ var hostname;
 var browser;
 var longitude;
 var city;
+var ip;
 
 
 //get the data of the user
@@ -23,7 +24,13 @@ function parseData(){
         city = thisuser_data.ipstacktrace[0].city;
         hostname = thisuser_data.ipstacktrace[0].hostname;
         browser = thisuser_data.browser;
-        console.log(latitude, longitude, city, hostname, browser);
+        ip = thisuser_data.ipstacktrace[0].ip;
+        console.log(latitude, longitude, city, hostname, browser, ip);
+        //document.write to the fields in dashboard.html
+        document.getElementById("city").innerText = city;
+        document.getElementById("hostname").innerText = hostname;
+        document.getElementById("browser").innerText = browser;
+        document.getElementById("ip").innerText = ip;
         break;
       }
     }
