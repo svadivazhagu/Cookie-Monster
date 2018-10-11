@@ -1,3 +1,250 @@
 body{
   touch-action: manipulation;
 }
+/*CSS by Daniel McDonough and Surya Vadivazhagu*/
+
+/*Containter for the center to use flex-box*/
+.flex-container {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-basis: auto;
+  flex-direction: column;
+
+}
+
+/*Init display for second page to not show*/
+.gone{
+  display:none;
+}
+
+.extendwidth{
+  width:70vw;
+  justify-content: center;
+}
+
+
+/* animation to disapear*/
+.hidden{
+  display:none;
+
+   -webkit-animation: hide 1s ease 0s forwards;
+    animation: hide 1s ease 0s forwards;
+}
+/* animation to appear*/
+.show{
+  opacity: 0;
+  display:flex;
+   -webkit-animation: show 1s ease 1s forwards;
+    animation: show 1s ease 1s forwards;
+}
+/* initial animation to appear*/
+.show-inline{
+  opacity: 0;
+  display:inline;
+   -webkit-animation: show-set 1.5s ease 0s forwards;
+    animation: show-set 1.5s ease 0s forwards;
+}
+
+
+.rise{
+   -webkit-animation: rise 2s ease 1s forwards;
+    animation: rise 2s ease 1s forwards;
+}
+
+.set{
+   -webkit-animation: set 2s ease 1s forwards;
+    animation: set 2s ease 1s forwards;
+}
+
+.item{
+   overflow: hidden;
+}
+
+.error{
+  color: #ffe6e6;
+}
+
+/*Icons for 2nd page*/
+.icons{
+  display:block;
+  margin: 0 auto;
+  width:7vw; /* you can use % */
+  height: auto;
+}
+
+.temp{
+  min-width: 30%;
+  height: 35vh;
+}
+
+@media(max-width: 700px){
+  .temp{
+    height:20vh;
+  }
+}
+
+/* animation to disapear*/
+@-webkit-keyframes hide {
+  from{
+  opacity:1
+}
+  to {
+    opacity: 0;
+    display:none;
+  }
+}
+
+@keyframes hide {
+  from{
+  opacity:1
+}
+  to {
+    opacity: 0;
+
+    display:none;
+
+  }
+}
+
+/* animation to  appear*/
+@-webkit-keyframes show {
+  0% {
+  		opacity: 0;
+
+  	}
+  	100% {
+  		opacity: 1;
+  	}
+}
+
+@keyframes show {
+  0% {
+  		opacity: 0;
+  	}
+  	100% {
+    	opacity: 1;
+  	}
+}
+
+/* animation to  appear*/
+@-webkit-keyframes show-set {
+  0% {
+  		opacity: 0;
+
+         -webkit-transform: translateY(-20px);
+  	}
+  	100% {
+  		opacity: 1;
+      -webkit-transform: translateY(0px);
+  	}
+}
+
+@keyframes show-set {
+  0% {
+  		opacity: 0;
+ transform: translateY(-20px);
+  	}
+  	100% {
+    transform: translateY(0px);
+    	opacity: 1;
+  	}
+}
+
+
+
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  background: #355C7D;  /* fallback for old browsers */
+  background: -webkit-radial-gradient(to top, #C06C84, #6C5B7B, #355C7D, #333333);
+  background:  radial-gradient(ellipse at bottom, #C06C84, #6C5B7B, #355C7D, #333333);
+
+  background-size: 250% 250%;
+
+  -webkit-animation: bg-animation 10s ease infinite;
+  -moz-animation: bg-animation 10s ease infinite;
+  -o-animation: bg-animation 10s ease infinite;
+  animation: bg-animation 10s ease infinite;
+}
+
+    @-webkit-keyframes bg-animation {
+       0%{background-position:48% 0%}
+       50%{background-position:53% 100%}
+       100%{background-position:48% 0%}
+    }
+    @keyframes bg-animation {
+       0%{background-position:48% 0%}
+       50%{background-position:53% 100%}
+       100%{background-position:48% 0%}
+    }
+
+h1{
+  font-size:calc(36px + 8vw); /*Found this cool min-font-size hack */
+  font-family: 'Dancing Script', cursive;
+  color: #F0E8E4;
+  padding-bottom: 10px;
+}
+h2{
+  font-size:calc(24px + 6vw);
+  color: #F0E8E4;
+}
+h3{
+  font-size:calc(18px + 4vw);
+  color: #F0E8E4;
+}
+h4{
+  font-size:calc(12px + 2.5vw);
+  color: #F0E8E4;
+}
+h5{
+  font-size:calc(8px + 2vw);
+  color: #F0E8E4;
+}
+h6{
+  font-size:calc(6px + 1vw);
+  color: #F0E8E4;
+}
+input[type=text] {
+    font-size:calc(6px + 1vw);
+    color: #F8F8F4;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #555;
+    width: 20vw;
+    min-width: 150px;
+    max-height: 5vh;
+    height:5vh;
+    min-height:42px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  text-align: center;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  text-align: center;
+}
+input[type=text]:focus {
+    border: 3px solid #555;
+}
+.button {
+    opacity: .8;
+    border-radius: 10px;
+    font-size:calc(6px + 1vw);
+    border: 1px solid #555;
+    width: 10vw;
+    max-height: 6vh;
+    height: 5vh;
+    min-height: 42px;
+    min-width: 50px;
+}
+.button:hover {
+    font-size:calc(6px + 1vw);
+    cursor: pointer;
+    border: 3px solid #555;
+    color: #F0E8E4;
+}
+.button:focus {
+    border: 3px solid #555;
+}
