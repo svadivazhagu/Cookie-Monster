@@ -30,7 +30,6 @@ function checkCookie() {
        // alert("Welcome again: " + user);
     } else {
         setCookie("userid", makeid(), 5);
-
     }
 }
 
@@ -227,7 +226,7 @@ window.onload = function() {
         //backgroundColor: 'rgba(0, 0, 58, 1)'
       });
       var heatmapContainer = document.getElementById('monster_container');
-      console.log(heatmap_data);
+
       heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
         // we need preventDefault for the touchmove
         e.preventDefault();
@@ -252,18 +251,30 @@ window.onload = function() {
         y[i].style.display = "none";
       }
 
-      var updatesessiondata = setInterval(cachedata,5000); //every 5 seconds update the local data
-
-      //update session data with the current data
-      function cachedata(){
-        sessiondata.session.keylog = keylogger;
-        sessiondata.session.heatmap = heatmap_data;
-        sessiondata.session.buttoninfo = buttoninfo;
-        sessiondata.session.timespent = timespent;
+    //  var updatesessiondata = setInterval(cachedata,5000); //every 5 seconds update the local data
+      //var procArray=[keylogger,heatmap_data,buttoninfo,timespent];
+      var timeout = 10000;
+      function delay(){
+        return new Promise(resolve => setTimeout(resolve,2000));
       }
 
-      var sendsessiondata = setInterval(sendData,10000); //every 10 seconds send user data to the database
-      //send data to the DB
+      async function delayedupdate(){
+        await delay();
+        sessiondata.session.keylog = keylogger;
+        //await delay();
+        if(heatmap_data.length< 1000){
+        sessiondata.session.heatmap = heatmap_data;
+        }
+      //  await delay();
+        sessiondata.session.buttoninfo = buttoninfo;
+      //  await delay();
+        sessiondata.session.timespent = timespent;
+        timeout+=1000;
+        console.log("updating....")
+      }
+
+
+  //send data to the DB
       function sendData(){
         var xml = new XMLHttpRequest();
         xml.open("POST", "/session");
@@ -271,6 +282,12 @@ window.onload = function() {
         xml.send(JSON.stringify(sessiondata));
       }
 
+      async function processArray(){
+        await delayedupdate()
+        sendData();
+      }
 
+      var sendsessiondata = setInterval(processArray,timeout); //every 10 seconds send user data to the database
 
+    //  processArray(procArray);
     };

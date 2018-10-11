@@ -170,7 +170,7 @@ function updatesession(req, res) {
   });
 }
 
-var docCount
+
  function getIndexes(req, res) {
   console.log("FJEKFHNSDKFSDKLFHSDL")
 var parse = {};
