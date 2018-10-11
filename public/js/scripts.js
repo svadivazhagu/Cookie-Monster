@@ -134,18 +134,9 @@ staticdata.userinfo.screen={"width":w,"height":h};
 //Obtain info on the IP address
 var API_CALL = "http://api.ipstack.com/check?access_key=890a6742c955390a7e8678ce0f6bde5a&hostname=1";
 var ipstackResponse;
-function ipTrack(){
-var responseArray = [];
-fetch(API_CALL)
-    .then(res => res.json())
-    .then(data => ipstackResponse = data)
-    .then(() => responseArray.push(ipstackResponse))
-return responseArray
-}
+//staticdata.userinfo.ipstacktrace=ipTrack();
 
-staticdata.userinfo.ipstacktrace=ipTrack();
-
-console.log(staticdata);
+//console.log(staticdata);
 
 //send static data from DB HERE
 //send data to the DB
@@ -157,8 +148,20 @@ function sendstaticData(){
   xml.send(JSON.stringify(staticdata));
 }
 
+function ipTrack(){
+var responseArray = [];
+fetch(API_CALL)
+    .then(res => res.json())
+    .then(data => ipstackResponse = data)
+    .then(() => responseArray.push(ipstackResponse))
+    .then(()=> staticdata.userinfo.ipstacktrace = responseArray)
+    .then(()=> sendstaticData())
+return responseArray
+}
 
-sendstaticData();
+//console.log();
+ipTrack();
+
 
 
 //********************************************
