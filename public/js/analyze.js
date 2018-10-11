@@ -1,24 +1,71 @@
 //analyze.js by Daniel Mcdonough & Surya Vadivazhagu
 
 var copyofDB;//array of users
+var user; //define a user
+var thisuser_data;
 
+//get the data of the user
 function parseData(){
-  
   function getTableinfo(){
-    //var obj =
     for(var i=0;i<copyofDB.length;i++){
-      if(copyofDB[i].browser == "Chrome"){
+      if(copyofDB[i].id == user){
         console.log("USER ID: "+copyofDB[i].id+" IP: "+ copyofDB[i].ipstacktrace[0].ip  +" City: "+ copyofDB[i].ipstacktrace[0].city);
+        thisuser_data = copyofDB[i];
+        break;
       }
-      else{
-        console.log(copyofDB[i].browser);
-      }
-
     }
   }
+  getTableinfo();
+}
 
-getTableinfo();
 
+/*Setting a cookie session*/
+
+checkCookie();
+//check if cookie exists, set it if it doesnt
+function checkCookie() {
+   user = getCookie("userid");
+    if (user != "") {
+       // alert("Welcome again: " + user);
+       console.log(user)
+    } else {
+        setCookie("userid", makeid(), 5);
+    }
+}
+
+//set a cookie based of a random ID
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+//get a cookie
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+//makes a 12char id
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 12; i++){
+     text += possible.charAt(Math.floor(Math.random() * possible.length));
+   }
+  return text;
 }
 
 function getData(){
@@ -58,7 +105,7 @@ function getData(){
 getData();
 
 
-
+//
 window.onload = function() {
 
 
