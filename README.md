@@ -22,4 +22,4 @@ ___
 - **Landing page is made beautiful and comprehensive using background + Bootstrap**
 
 ___
-#### Made with love at WPI.
+Made with love at WPI.
