@@ -185,7 +185,7 @@ var results;
   let userToken = AuthUser();
   userToken.then(function(result) {
   parse = {"response":result};
-  res.write( JSON.stringify(parse));
+ // res.write( JSON.stringify(parse));
   //console.log(parse);
   res.end();
   });
