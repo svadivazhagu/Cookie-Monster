@@ -50,12 +50,16 @@
                   background: #1C2331!important;
               }
           }
+          #heatmapContainerWrapper { width:100%; height:100%; position:absolute; }
+            #monster_container { width:100vw; height:100vh;}
   </style>
 </head>
 
 <body id="monster_container">
 
- 
+
+
+
   <!-- Full Page Intro -->
   <div class="view full-page-intro" style="background-image: url('https://barbarashdwallpapers.com/wp-content/uploads/2016/04/Brown-wallpaper-with-chocolate-chip-cookies.jpg'); background-repeat: no-repeat; background-size: cover;">
 
@@ -82,21 +86,24 @@
             <p class="mb-4 d-none d-md-block">
               Harness the power of modern JavaScript to connect with your users in a far deeper level than before. <br>
                 Jump in and take a look at what Cookie Monster has to offer!
+            </p>
 
+            <p class="mb-4 d-none d-md-block">
+              Press any key to toggle the Heatmap!
             </p>
 
             <a  href="/dashboard" class="btn btn-orange btn-lg">View Analytics
               <i class="fa fa-line-chart ml-2"></i>
             </a>
 
-            <!-- <a  class="btn btn-yellow btn-lg clickcounter">Click Counter
+            <a  id="heatmap_show" class="btn btn-yellow btn-lg clickcounter">Heatmap
               <i class="fa fa-mouse-pointer ml-2"></i>
-            </a> -->
-            
+            </a>
+
           </div>
           <!--Grid column-->
 
-       
+
         </div>
         <!--Grid row-->
 
@@ -109,8 +116,8 @@
   </div>
   <!-- Full Page Intro -->
 
-  
-  
+
+
   <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

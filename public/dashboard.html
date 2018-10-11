@@ -16,34 +16,28 @@
     <link href="css/mdb.min.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="https://ubisafe.org/images/cookies-clipart-clear-background-6.png"/>
     <link href="css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
-        <div class="view full-page-intro" style="background-image: url('https://www.vactualpapers.com/web/wallpapers/hd-wallpaper-inspired-by-google-material-design-34/2560x1440.jpg'); background-repeat: no-repeat; background-size: cover;">
-
     <!--Main Navigation-->
-
     <header>
         <!-- Sidebar -->
-        <div class="sidebar-fixed position-fixed" style ="background: transparent;
-        ">
+        <div class="sidebar-fixed position-fixed">
             <a class="logo-wrapper waves-effect">
                 <img src="https://ubisafe.org/images/cookies-clipart-clear-background-6.png">
             </a>
            <br>
-           <h8>Your Data</h8>
+           <!-- Brand -->
+
             <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action waves-effect" style="background: burlywood;">
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-map-marker mr-3"></i><div id = "city"></div>
                 </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect" style="background: burlywood;">
+                <a href="#" class="list-group-item list-group-item-action waves-effect" >
                     <i class="fa fa-user mr-3"></i><div id = "ip"></div></a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect" style="background: burlywood;">
-                    <i class="fa fa-desktop mr-3"></i><div id = "hostname"style="font-size: 14px;background: burlywood;"></div></a>
-
-                <a href="#" class="list-group-item list-group-item-action waves-effect" style="background: burlywood;">
-
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
+                    <i class="fa fa-desktop mr-3"></i><div id = "hostname"></div></a>
+                <a href="#" class="list-group-item list-group-item-action waves-effect">
                     <i class="fa fa-chrome mr-3"></i><div id = "browser"></div></a>
             </div>
         </div>
@@ -72,22 +66,59 @@
             <!--Grid row-->
             <div class="row wow fadeIn">
 
-                <!--Grid column-->
-                <div class="col-md-9 mb-4">
+                                <!--Grid column-->
+                  <div class="col-md-6 mb-4">
 
-                            <div id="map-container" class="z-depth-1" style="height: 500px"></div>
+                      <!--Card-->
+                      <div class="card">
 
-                    <!--/.Card-->
+                          <!-- Card header -->
+                          <div class="card-header">Google map</div>
 
-                </div>
-                <!--Grid column-->
+                          <!--Card content-->
+                          <div class="card-body">
 
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-5 mb-3">
+                              <!--Google map-->
+                              <div id="map-container" class="z-depth-1" style="height: 500px"></div>
+
+                          </div>
+
+                      </div>
+                      <!--/.Card-->
+
+                  </div>
+
+                  <div class="col-md-6 mb-4">
+
+                      <!--Card-->
+                      <div class="card">
+
+                          <!-- Card header -->
+                          <div class="card-header">Other Data</div>
+
+                          <!--Card content-->
+                          <div class="card-body">
+
+                              <!--Google map-->
+                              <div id="keys" class="z-depth-1" ></div>
+                              <br/>
+                              <div id="screenwidth" class="z-depth-1"></div>
+                              <br/>
+                              <div id="screenhight" class="z-depth-1"></div>
+                              <br/>
+                              <div id="screentime" class="z-depth-1"></div>
+                              <br/>
+                              <div id="buttonpress" class="z-depth-1"></div>
+
+                          </div>
+
+                      </div>
+                      <!--/.Card-->
+
+                  </div>
+                  <!--Grid column-->
 
 
-                </div>
-                <!--Grid column-->
 
             </div>
             <!--Grid row-->
@@ -148,14 +179,171 @@
 
     <!-- Charts -->
 
+  <script src="js/analyze.js"></script>
 
-    <!--Google Maps-->
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyAWln8sHz8f5b2yChlqxn26hSyK9o8ZtPA"></script>
     <script>
 
-    </script>
+            var copyofDB;//array of users
+            var user; //define a user
+            var thisuser_data;
+            var latitude;
+            var hostname;
+            var browser;
+            var longitude;
+            var city;
+            var ip;
+            var keys;
+            var screenhight;
+            var screenwidth;
+            var screentime;
+            var buttonpress;
 
+
+            //get the data of the user
+            function parseData(){
+              function getTableinfo(){
+                for(var i=0;i<copyofDB.length;i++){
+                  if(copyofDB[i].id == user){
+                   // console.log("USER ID: "+copyofDB[i].id+" IP: "+ copyofDB[i].ipstacktrace[0].ip  +" City: "+ copyofDB[i].ipstacktrace[0].city);
+                    thisuser_data = copyofDB[i];
+                   // console.log(copyofDB[i]);
+                    latitude = thisuser_data.ipstacktrace[0].latitude;
+                    longitude = thisuser_data.ipstacktrace[0].longitude;
+                    city = thisuser_data.ipstacktrace[0].city;
+                    hostname = thisuser_data.ipstacktrace[0].hostname;
+                    browser = thisuser_data.browser;
+                    ip = thisuser_data.ipstacktrace[0].ip;
+                    keys= thisuser_data.keylog;
+                    screentime = thisuser_data.timespent/1000;
+                    screenhight = thisuser_data.screen.height;
+                    screenwidth = thisuser_data.screen.width;
+                    buttonpress = thisuser_data.buttoninfo[0].clicks
+                    console.log(latitude, longitude, city, hostname, browser, ip);
+                    //document.write to the fields in dashboard.html
+                    document.getElementById("city").innerText = city;
+                    document.getElementById("hostname").innerText = hostname;
+                    document.getElementById("browser").innerText = browser;
+                    document.getElementById("ip").innerText = ip;
+                    document.getElementById("keys").innerText = "Keys Your've pressed: "+keys;
+                    document.getElementById("screenwidth").innerText = "Your screen width: " + screenwidth+"px";
+                    document.getElementById("screenhight").innerText = "Your screen height " + screenhight+"px";
+                    document.getElementById("screentime").innerText = "Time spent on previous site... "+screentime+" seconds";
+                    document.getElementById("buttonpress").innerText = "# of Button clicks... "+buttonpress;
+
+                    break;
+                  }
+                }
+              }
+              getTableinfo();
+            }
+
+
+            /*Setting a cookie session*/
+
+            checkCookie();
+            //check if cookie exists, set it if it doesnt
+            function checkCookie() {
+               user = getCookie("userid");
+                if (user != "") {
+                   // alert("Welcome again: " + user);
+                   console.log(user)
+                } else {
+                    setCookie("userid", makeid(), 5);
+                }
+            }
+
+            //set a cookie based of a random ID
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            //get a cookie
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
+
+            //makes a 12char id
+            function makeid() {
+              var text = "";
+              var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+              for (var i = 0; i < 12; i++){
+                 text += possible.charAt(Math.floor(Math.random() * possible.length));
+               }
+              return text;
+            }
+
+            function getData(){
+
+                var xml = new XMLHttpRequest();
+                xml.open("POST", "/getIndexes");
+                xml.onreadystatechange = handle_res_post;
+                xml.send();
+              }
+
+              //Handle return data from get data
+              function handle_res_post() {
+                //console.log("TOuch handle_res");
+                switch(this.readyState){
+                  case 1:
+                      console.log("Opened Query MSG");
+                      break;
+                  case 2:
+                      console.log("Reading Query HEADER");
+                      break;
+                  case 3:
+                      console.log("Loading Query Data");
+                      break;
+                  case 4:
+                      if (this.status == 200) {
+                        //console.log(this.responseText)
+                        var myArr = JSON.parse(this.responseText);
+                        console.log(myArr);
+                        copyofDB = (myArr.response);
+                      //  console.log(copyofDB)
+                        parseData();
+                        //CHECK IF response was an update response!
+                }
+              }
+            }
+            getData();
+
+
+
+
+
+
+     var map;
+     function initMap() {
+       console.log(latitude,longitude)
+       var var_location = new google.maps.LatLng(latitude, longitude);
+       var var_mapoptions = {
+           center: var_location,
+           zoom: 14
+       };
+       var var_map = new google.maps.Map(document.getElementById("map-container"),
+           var_mapoptions);
+       var var_marker = new google.maps.Marker({
+           position: var_location,
+           map: var_map
+       });
+     }
+   </script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYCMHTjE1EYZ5z9rEKe7-xfrVI_NA5u5Q&callback=initMap"></script>
 </body>
-<script src="js/analyze.js"></script>
 
 </html>

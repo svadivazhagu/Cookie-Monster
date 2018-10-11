@@ -37,6 +37,7 @@
 .padding-top{
   padding-top: 10px;
 }
+
 .mg-l-5{
   margin-left: 5vh;
 }
@@ -56,4 +57,7 @@ td.delete{
 }
 .errormsg{
   color: red;
+}
+body{
+  background-color:
 }

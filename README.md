@@ -10,13 +10,16 @@ ___
 Cookie Monster was born from the desire to understand how services like Google Analytics and others are able to gather so much information on their users. While Cookie Monster lacks the deep data-mining features of Google Analytics, it is our testament to learning about persistent web analytics within the time-frame of an academic final project.
 ___
 ## Use Cases
-
+ - **A/B UI Testing**
+ - **Advertisements**
+ - **Security Awareness**
+ - **User Tracking**
 ___
-## Achievements 
+## Achievements
 ### Technical Achivements
 - **IP Tracking** : We made use of a RESTful IP Tracking API that allowed us to query and identify a user's IP. From this they are able to obtain a host of information, which we put into a mongoDB document corresponding to a user's cookie ID/hash, and then use that to persist through multiple sessions.
 - **Persistent use of cookies and localStorage to cache high volumes of data for less render time** : From a user's IP data to the various other data points we collect, there is a great amount of information being pushed to our Mongo collection at any given time. We utilized localStorage as well as our own caching system using cookies to ensure that not too many ```insert``` operations are being run at once.
-- **Current location map display**: We leveraged the power of the Google Maps API to 
+- **Current location map display**: We leveraged the power of the Google Maps API to
 use the information from our IP routing to triangulate and identify a user's location and display an embedded Maps viewer to interact with.
 
 ### Design Achievements

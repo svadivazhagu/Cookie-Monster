@@ -179,7 +179,7 @@ var heatmap_data; //mouse tracking info
 
 
 window.onload = function() {
-
+    var y = document.getElementsByClassName('heatmap-canvas');
         //update the timerevery second (1000 ms)
         var updateTimer = setInterval(myTimer, 1000);
 
@@ -191,6 +191,16 @@ window.onload = function() {
       //keep track of the users key presses
       document.onkeypress=function(e){
         keylogger.push(e.key);
+        for(var i =0, il = y.length;i<il;i++){
+          if(y[i].style.display == "none"){
+            y[i].style.display = "inline";
+            y[i].style.zIndex = "10";
+          }
+          else{
+            y[i].style.display = "none";
+          }
+
+        }
       }
 
 
@@ -217,11 +227,12 @@ window.onload = function() {
       //create a heatmap instance
       var heatmap = h337.create({
         container: document.getElementById('monster_container'),
-        // maxOpacity: 0,
-        // minOpacity:0,
-        // gradient: { },
-        radius: 10,
+         maxOpacity: .6,
+         minOpacity: 0.2,
+        gradient: {'.1': '#000046', '.2':'#40e0d0', '.3': '#1CB5E0', '.4': '#ff8c00', '.5': '#FF0080'  },
+        radius: 40,
         blur: 0.9,
+        max: 5,
         // backgroundColor with alpha so you can see through it
         //backgroundColor: 'rgba(0, 0, 58, 1)'
       });
@@ -231,36 +242,62 @@ window.onload = function() {
         // we need preventDefault for the touchmove
         e.preventDefault();
         e.stopImmediatePropagation();
-        var x = e.layerX+document.body.scrollLeft;
-        var y = e.layerY+document.body.scrollTop;
-        if (e.touches) {
-          x = e.touches[0].pageX+document.body.scrollLeft;
-          y = e.touches[0].pageY+document.body.scrollTop;
-        }
+        var x = e.layerX;
+        var y = e.layerY;
 
+        if (e.touches) {
+          x = e.touches[0].pageX;
+          y = e.touches[0].pageY;
+          //heatmap.addData({ x: x, y: y, value: 9 });
+        }
         heatmap.addData({ x: x, y: y, value: 1 });
+
         //mousedata.push({"xy":x+","+y,value:1+getvalue()});
 
-        heatmap_data = heatmap.getData();
-        console.log(heatmap_data);
+      //  heatmap_data = heatmap.getData();
+      heatmapContainer.onclick = function(e) {
+          var x = e.layerX;
+          var y = e.layerY;
+          heatmap.addData({ x: x, y: y, value: 10 });
+        };
+        //console.log(heatmap_data);
       };
 
+
+      var showheatmap = document.getElementById("heatmap_show").addEventListener("click", function(){
+      //  var y = document.getElementsByClassName('heatmap-canvas');
+        for(var i =0, il = y.length;i<il;i++){
+          if(y[i].style.display == "none"){
+            y[i].style.display = "inline";
+            y[i].style.zIndex = "10";
+          }
+          else{
+            y[i].style.display = "none";
+          }
+
+        }
+      });
+
       //make heatmap invisible
-      var y = document.getElementsByClassName('heatmap-canvas');
+
       for(var i =0, il = y.length;i<il;i++){
+        y[i].id = "heatmap_canvas";
         y[i].style.display = "none";
+
+        //y[i].addEventListener('click',showheatmap,true);
+        //y[i].style.pointerEvents: none
+       y[i].style.width = "100%";
+        y[i].style.height = "100%";
       }
+
+
+
 
       var updatesessiondata = setInterval(cachedata,5000); //every 5 seconds update the local data
 
       //update session data with the current data
       function cachedata(){
         sessiondata.session.keylog = keylogger;
-<<<<<<< HEAD
-        //sessiondata.session.heatmap = heatmap_data;
-=======
-       // sessiondata.session.heatmap = heatmap_data;
->>>>>>> d93b3f55568968bc9b32d5e552e63b4b4c0fe453
         sessiondata.session.buttoninfo = buttoninfo;
         sessiondata.session.timespent = timespent;
       }

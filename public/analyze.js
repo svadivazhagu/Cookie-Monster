@@ -1,5 +1,6 @@
 //analyze.js by Daniel Mcdonough & Surya Vadivazhagu
 
+
 var copyofDB;//array of users
 var user; //define a user
 var thisuser_data;
