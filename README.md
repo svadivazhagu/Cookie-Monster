@@ -6,7 +6,7 @@ ___
 Cookie Monster leverages the power of modern JavaScript, IP tracing, and other toolkits to provide real-time data on a website's users. It features fully-functional geo-tracking, IP tracking, and many more features, all presented in a beautiful dashboard format. <br>
 **Note**: **In order to run Cookie Monster on your browser, you must have all AdBlock extensions turned off and your browser must be Google Chrome. Otherwise the cookie storing functionality won't work.**.
 
-**Note**: **We can only call Google maps once a day.**.
+**Note**: **We can only call Google maps once a day. However the geolocation will work. Meaning if you get an error about Maps not being able to load it in, it is still able to fetch your location and display, if you look past the message onto the greyed-out area. This issue is due to a billing problem with Google Maps API and their new billing system that charges a lot of money for simple dynamic calls.**
 ___
 ## Project Ideation
 Cookie Monster was born from the desire to understand how services like Google Analytics and others are able to gather so much information on their users. While Cookie Monster lacks the deep data-mining features of Google Analytics, it is our testament to learning about persistent web analytics within the time-frame of an academic final project.
