@@ -27,7 +27,7 @@ checkCookie();
 function checkCookie() {
    user = getCookie("userid");
     if (user != "") {
-        alert("Welcome again: " + user);
+       // alert("Welcome again: " + user);
     } else {
         setCookie("userid", makeid(), 5);
     }
