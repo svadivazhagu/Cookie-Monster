@@ -16,7 +16,8 @@ ___
 ### Technical Achivements
 - **IP Tracking** : We made use of a RESTful IP Tracking API that allowed us to query and identify a user's IP. From this they are able to obtain a host of information, which we put into a mongoDB document corresponding to a user's cookie ID/hash, and then use that to persist through multiple sessions.
 - **Persistent use of cookies and localStorage to cache high volumes of data for less render time** : From a user's IP data to the various other data points we collect, there is a great amount of information being pushed to our Mongo collection at any given time. We utilized localStorage as well as our own caching system using cookies to ensure that not too many ```insert``` operations are being run at once.
-- **Current location map display**
+- **Current location map display**: We leveraged the power of the Google Maps API to 
+use the information from our IP routing to triangulate and identify a user's location and display an embedded Maps viewer to interact with.
 
 ### Design Achievements
 - **Fully integrating Material Design philosophy into project**: The landing page and then the dashboard are both made with Material Design elements thoroughly.
