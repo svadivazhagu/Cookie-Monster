@@ -3,14 +3,27 @@
 var copyofDB;//array of users
 var user; //define a user
 var thisuser_data;
+var latitude;
+var hostname;
+var browser;
+var longitude;
+var city;
+
 
 //get the data of the user
 function parseData(){
   function getTableinfo(){
     for(var i=0;i<copyofDB.length;i++){
       if(copyofDB[i].id == user){
-        console.log("USER ID: "+copyofDB[i].id+" IP: "+ copyofDB[i].ipstacktrace[0].ip  +" City: "+ copyofDB[i].ipstacktrace[0].city);
+       // console.log("USER ID: "+copyofDB[i].id+" IP: "+ copyofDB[i].ipstacktrace[0].ip  +" City: "+ copyofDB[i].ipstacktrace[0].city);
         thisuser_data = copyofDB[i];
+       // console.log(copyofDB[i]);
+        latitude = thisuser_data.ipstacktrace[0].latitude;
+        longitude = thisuser_data.ipstacktrace[0].longitude;
+        city = thisuser_data.ipstacktrace[0].city;
+        hostname = thisuser_data.ipstacktrace[0].hostname;
+        browser = thisuser_data.browser;
+        console.log(latitude, longitude, city, hostname, browser);
         break;
       }
     }
