@@ -162,32 +162,39 @@ function updatesession(req, res) {
 }
 
 var docCount
-function getIndexes(req, res) {
-var parse = {};
+ function getIndexes(req, res) {
+  console.log("FJEKFHNSDKFSDKLFHSDL")
+var parse = '';
 var id;
-
+var result;
 //on get data
-req.on('data', function(d) {
-  //parse = JSON.parse(d); //parse data
-  //on done in on data
-  res.writeHead(200, {'Content-Type': 'text/html'});
 
-  //get all indexes in the current collection of db (so user ids)
- docCount = dbo.collection("userdata").countDocuments({});
- parse.count = docCount;
- res.write(JSON.stringify(parse));
-  console.log(docCount);
 
-  setTimeout(function(){res.end()}, 12000);
+    //on done in on data
+  //  res.writeHead(200, {'Content-Type': 'text/html'});
 
-});
+
+  let AuthUser = function(parse) {
+    return dbo.collection("userdata").find({}).toArray().then(token => { return token } )
+  }
+
+  let userToken = AuthUser();
+//  console.log(userToken) // Promise { <pending> }
+
+  userToken.then(function(result) {
+  //  var results = {"results": result}
+    //res.write(result);
+    console.log(result) //will log results.
+
+     //res.end();
+  });
+
+
+
+    //var results = await getresults();
+
+    //res.end();
 }
-
-function consoleLog(input){
- console.log(input)
- return input;
-}
-
 
 
 
