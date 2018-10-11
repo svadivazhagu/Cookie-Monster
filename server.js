@@ -35,6 +35,9 @@ var server = http.createServer (function (req, res) {
         case '/js/scripts.js':
           sendFile(res, 'public/js/scripts.js', 'text/javascript');
           break;
+        case '/js/analyze.js':
+          sendFile(res, 'public/js/analyze.js', 'text/javascript');
+          break;
         case '/js/heatmap.min.js':
           sendFile(res, 'public/js/heatmap.min.js', 'text/javascript');
           break;
@@ -164,29 +167,21 @@ function updatesession(req, res) {
 var docCount
  function getIndexes(req, res) {
   console.log("FJEKFHNSDKFSDKLFHSDL")
-var parse = '';
+var parse = {};
 var id;
-var result;
+var results;
 //on get data
 
-
-    //on done in on data
   //  res.writeHead(200, {'Content-Type': 'text/html'});
-
-
   let AuthUser = function(parse) {
     return dbo.collection("userdata").find({}).toArray().then(token => { return token } )
   }
-
   let userToken = AuthUser();
-//  console.log(userToken) // Promise { <pending> }
-
   userToken.then(function(result) {
-  //  var results = {"results": result}
-    //res.write(result);
-    console.log(result) //will log results.
-
-     //res.end();
+  parse = {"response":result};
+  res.write( JSON.stringify(parse));
+  console.log(parse);
+  res.end();
   });
 
 
