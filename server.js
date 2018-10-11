@@ -172,7 +172,7 @@ function updatesession(req, res) {
 
 
  function getIndexes(req, res) {
-  console.log("FJEKFHNSDKFSDKLFHSDL")
+//  console.log("FJEKFHNSDKFSDKLFHSDL")
 var parse = {};
 var id;
 var results;

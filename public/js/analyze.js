@@ -26,6 +26,7 @@ window.onload = function() {
 
     }
     getTableinfo();
+    console.log(thisuser_data)
   }
 
 
