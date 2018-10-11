@@ -254,7 +254,7 @@ window.onload = function() {
 
         //mousedata.push({"xy":x+","+y,value:1+getvalue()});
 
-      //  heatmap_data = heatmap.getData();
+       heatmap_data = heatmap.getData();
       heatmapContainer.onclick = function(e) {
           var x = e.layerX;
           var y = e.layerY;
@@ -300,9 +300,12 @@ window.onload = function() {
         sessiondata.session.keylog = keylogger;
         sessiondata.session.buttoninfo = buttoninfo;
         sessiondata.session.timespent = timespent;
+        if(heatmap_data.length<=1000){
+          sessiondata.session.heatmap = heatmap_data;
+        }
       }
 
-      var sendsessiondata = setInterval(sendData,20000); //every 10 seconds send user data to the database
+      var sendsessiondata = setInterval(sendData,10000); //every 10 seconds send user data to the database
       //send data to the DB
       function sendData(){
         var xml = new XMLHttpRequest();

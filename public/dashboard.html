@@ -180,7 +180,7 @@
     <!-- Charts -->
 
   <script src="js/analyze.js"></script>
-
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1gliNOzddmYtmy9nG1L4SXLVd3ei_2KI"></script>
     <script>
 
             var copyofDB;//array of users
@@ -287,12 +287,34 @@
               return text;
             }
 
-            function getData(){
+            function getData(callback){
+              var xml = new XMLHttpRequest();
+              xml.open("POST", "/getIndexes");
+              xml.onreadystatechange = handle_res_post;
+              xml.send();
+              setTimeout(function() {
 
-                var xml = new XMLHttpRequest();
-                xml.open("POST", "/getIndexes");
-                xml.onreadystatechange = handle_res_post;
-                xml.send();
+                if(typeof callback == 'function')
+                        callback();
+                }, 2000);
+
+                //return "hello";
+              }
+
+              var map;
+              function initMap() {
+                console.log(latitude,longitude)
+                var var_location = new google.maps.LatLng(latitude,longitude);
+                var var_mapoptions = {
+                    center: var_location,
+                    zoom: 14
+                };
+                var var_map = new google.maps.Map(document.getElementById("map-container"),
+                    var_mapoptions);
+                var var_marker = new google.maps.Marker({
+                    position: var_location,
+                    map: var_map
+                });
               }
 
               //Handle return data from get data
@@ -320,30 +342,27 @@
                 }
               }
             }
-            getData();
+
+            function loadpage() {
+                  getData(shortfunctionsecond);
+              }
+
+
+              function shortfunctionsecond() {
+                  initMap(); //we litterally can only do this once a day :(
+              };
 
 
 
 
 
 
-     var map;
-     function initMap() {
-       console.log(latitude,longitude)
-       var var_location = new google.maps.LatLng(42.2717641,-71.8059524,);
-       var var_mapoptions = {
-           center: var_location,
-           zoom: 14
-       };
-       var var_map = new google.maps.Map(document.getElementById("map-container"),
-           var_mapoptions);
-       var var_marker = new google.maps.Marker({
-           position: var_location,
-           map: var_map
-       });
-     }
+loadpage();
+
+
+
    </script>
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAYCMHTjE1EYZ5z9rEKe7-xfrVI_NA5u5Q&callback=initMap"></script>
+
 </body>
 
 </html>
