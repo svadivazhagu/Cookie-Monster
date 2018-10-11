@@ -302,7 +302,7 @@ window.onload = function() {
         sessiondata.session.timespent = timespent;
       }
 
-      var sendsessiondata = setInterval(sendData,10000); //every 10 seconds send user data to the database
+      var sendsessiondata = setInterval(sendData,20000); //every 10 seconds send user data to the database
       //send data to the DB
       function sendData(){
         var xml = new XMLHttpRequest();
