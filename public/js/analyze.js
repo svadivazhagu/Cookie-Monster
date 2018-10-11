@@ -1,5 +1,45 @@
 //analyze.js by Daniel Mcdonough & Surya Vadivazhagu
 
+<<<<<<< HEAD
+=======
+var copyofDB;//array of users
+var user; //define a user
+var thisuser_data;
+var latitude;
+var hostname;
+var browser;
+var longitude;
+var city;
+var ip;
+
+
+//get the data of the user
+function parseData(){
+  function getTableinfo(){
+    for(var i=0;i<copyofDB.length;i++){
+      if(copyofDB[i].id == user){
+       // console.log("USER ID: "+copyofDB[i].id+" IP: "+ copyofDB[i].ipstacktrace[0].ip  +" City: "+ copyofDB[i].ipstacktrace[0].city);
+        thisuser_data = copyofDB[i];
+       // console.log(copyofDB[i]);
+        latitude = thisuser_data.ipstacktrace[0].latitude;
+        longitude = thisuser_data.ipstacktrace[0].longitude;
+        city = thisuser_data.ipstacktrace[0].city;
+        hostname = thisuser_data.ipstacktrace[0].hostname;
+        browser = thisuser_data.browser;
+        ip = thisuser_data.ipstacktrace[0].ip;
+        console.log(latitude, longitude, city, hostname, browser, ip);
+        //document.write to the fields in dashboard.html
+        document.getElementById("city").innerText = city;
+        document.getElementById("hostname").innerText = hostname;
+        document.getElementById("browser").innerText = browser;
+        document.getElementById("ip").innerText = ip;
+        break;
+      }
+    }
+  }
+  getTableinfo();
+}
+>>>>>>> 2b0ba9f955b7bc86f26544e117e920734b19500b
 
 
 

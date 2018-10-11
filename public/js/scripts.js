@@ -256,7 +256,7 @@ window.onload = function() {
       //update session data with the current data
       function cachedata(){
         sessiondata.session.keylog = keylogger;
-        sessiondata.session.heatmap = heatmap_data;
+        //sessiondata.session.heatmap = heatmap_data;
         sessiondata.session.buttoninfo = buttoninfo;
         sessiondata.session.timespent = timespent;
       }
