@@ -24,6 +24,9 @@ body{
   justify-content: center;
 }
 
+.transp{
+  background-color: transparent;color: black;
+}
 
 /* animation to disapear*/
 .hidden{
