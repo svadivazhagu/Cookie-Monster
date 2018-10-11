@@ -53,7 +53,7 @@ var server = http.createServer (function (req, res) {
         case 'img/cookieBackground.jpg':
           sendFile(res, 'public/img/cookieBackground.jpg', 'img/jpg')
           break;
-        case 'css/landingpage.min.css':
+        case '/css/landingpage.min.css':
           sendFile(res, 'public/css/landingpage.min.css','text/css')
           break;
         default:
