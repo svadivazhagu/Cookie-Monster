@@ -224,7 +224,7 @@ window.onload = function() {
         //backgroundColor: 'rgba(0, 0, 58, 1)'
       });
       var heatmapContainer = document.getElementById('monster_container');
-
+      console.log(heatmap_data);
       heatmapContainer.onmousemove = heatmapContainer.ontouchmove = function(e) {
         // we need preventDefault for the touchmove
         e.preventDefault();
