@@ -1,39 +1,133 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta author="Surya Vadivazhagu & Daniel McDonough">
-    <meta description="a5-final project">
-    <title>Cookie Monster</title>
-    <style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>CM Landing Page</title>
+  <style>
     #heatmapContainerWrapper { width:100%; height:100%; position:absolute; touch-action: manipulation;  }
     #heatmapContainer { width:100vw; height:100vh; }
     </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="/img/cookieLogo.png"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+  <link rel="shortcut icon" type="image/png" href="/img/cookieLogo.png"/>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/landingpage.min.css" rel="stylesheet">
+  <style type="text/css">
+    html,
+    body,
+    header,
+    .view {
+      height: 100%;
+    }
+
+    @media (max-width: 740px) {
+      html,
+      body,
+      header,
+      .view {
+        height: 1000px;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+      html,
+      body,
+      header,
+      .view {
+        height: 650px;
+      }
+    }
+    @media (min-width: 800px) and (max-width: 850px) {
+              .navbar:not(.top-nav-collapse) {
+                  background: #1C2331!important;
+              }
+          }
+  </style>
 </head>
 
-<body id="monster_container" >
+<body id="monster_container">
 
-<h1>Cookie Monster</h1>
-<p>Check out the Console to see values.</p>
-<button class="clickcounter">Button1</button>
+ 
+  <!-- Full Page Intro -->
+  <div class="view full-page-intro" style="background-image: url('https://barbarashdwallpapers.com/wp-content/uploads/2016/04/Brown-wallpaper-with-chocolate-chip-cookies.jpg'); background-repeat: no-repeat; background-size: cover;">
 
-<button class="clickcounter">Button2</button>
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-<script src="js/heatmap.min.js"></script>
-<!--<script src="js/keypress.min.js"></script>-->
+      <!-- Content -->
+      <div class="container">
 
-<!--Script for  -->
-<script>
+        <!--Grid row-->
+        <div class="row wow fadeIn">
 
+          <!--Grid column-->
+          <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
-</script>
+            <h2 class="display-4 font-weight-bold">Cookie Monster </h2><h3 class="display-5">Web analytics. Reimagined.</h3>
 
+            <hr class="hr-light">
+
+            <p>
+              <strong>Take control of user traffic on your website.</strong>
+            </p>
+
+            <p class="mb-4 d-none d-md-block">
+              Harness the power of modern JavaScript to connect with your users in a far deeper level than before. <br>
+                Jump in and take a look at what Cookie Monster has to offer!
+
+            </p>
+
+            <a  href="" class="btn btn-orange btn-lg">View Analytics
+              <i class="fa fa-line-chart ml-2"></i>
+            </a>
+
+            <a  class="btn btn-yellow btn-lg clickcounter">Click Counter
+              <i class="fa fa-mouse-pointer ml-2"></i>
+            </a>
+            
+          </div>
+          <!--Grid column-->
+
+       
+        </div>
+        <!--Grid row-->
+
+      </div>
+      <!-- Content -->
+
+    </div>
+    <!-- Mask & flexbox options-->
+
+  </div>
+  <!-- Full Page Intro -->
+
+  
+  
+  <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+    <!-- Initializations -->
+    <script type="text/javascript">
+        // Animations initialization
+        new WOW().init();
+    </script>
+    <script src="js/heatmap.min.js"></script>
 </body>
 <script src="js/scripts.js"></script>
+
 
 </html>
